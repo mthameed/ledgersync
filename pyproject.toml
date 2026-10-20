@@ -1,0 +1,33 @@
+[project]
+name = "ledgersync"
+version = "0.1.0"
+description = "Reconciles local trade/position/equity state against IBKR's Flex Query reporting data -- recovers commission and realized P&L data the live TWS/Gateway API doesn't reliably retain across a disconnect."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Muhammad Tahir Hameed" }]
+keywords = ["interactive-brokers", "ibkr", "trading", "reconciliation", "flex-query", "accounting", "broker-reconciliation"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+# Only the Flex Query side (the core of this package) needs a dependency --
+# it's a plain HTTP + XML polling flow. The live-position diagnostic in
+# diagnostics/cross_check_positions.py additionally needs ib_insync, kept
+# optional below since it's the only piece that needs a live Gateway
+# connection rather than just the Flex Query report.
+dependencies = ["requests>=2.28"]
+
+[project.optional-dependencies]
+diagnostics = ["ib_insync>=0.9.70"]
+
+[project.scripts]
+ledgersync = "ledgersync.cli:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

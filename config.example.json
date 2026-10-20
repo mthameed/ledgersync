@@ -1,0 +1,6 @@
+{
+  "account_id": "YOUR_ACCOUNT_ID_HERE",
+  "flex_token": "YOUR_FLEX_TOKEN_HERE",
+  "flex_query_id": "YOUR_FLEX_QUERY_ID_HERE",
+  "state_dir": "state"
+}
